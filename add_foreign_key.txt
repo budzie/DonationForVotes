@@ -1,0 +1,8 @@
+ALTER TABLE `donation_votes`.`keyword` 
+ADD INDEX `BILL_NAME_idx` (`BILL_NAME` ASC);
+ALTER TABLE `donation_votes`.`keyword` 
+ADD CONSTRAINT `BILL_NAME`
+  FOREIGN KEY (`BILL_NAME`)
+  REFERENCES `donation_votes`.`bills` (`BILL_ID`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;

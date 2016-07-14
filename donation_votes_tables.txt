@@ -1,0 +1,45 @@
+CREATE TABLE bills (
+    BILL_ID VARCHAR(16) NOT NULL PRIMARY KEY,
+	BILL_NAME VARCHAR(255),
+    Summary VARCHAR(255)
+);
+
+CREATE TABLE Keyword(
+KW_ID int(3) unsigned zerofill not null auto_increment primary key,
+BILL_NAME	VARCHAR(255),
+ Keyword 	VARCHAR(255),
+ FOREIGN KEY (BILL_NAME) REFERENCES bills(BILL_NAME)
+ );
+
+CREATE TABLE Sponsor(
+SPONSOR_ID int(3) unsigned zerofill not null auto_increment primary key,
+BILL_NAME	VARCHAR(255),
+ENT_ID		INT(3),
+FOREIGN KEY (BILL_NAME) REFERENCES bills(BILL_NAME),
+FOREIGN KEY (ENT_ID) REFERENCES entity(ENT_ID)
+);
+
+CREATE TABLE Votes(
+VOTE_ID int(3) unsigned zerofill not null auto_increment primary key,
+BILL_NAME	VARCHAR(255),
+ENT_ID		INT(3),	
+Vote ENUM('yeas','nays','absent','excused'),
+FOREIGN KEY (BILL_NAME) REFERENCES bills(BILL_NAME),
+FOREIGN KEY (ENT_ID) REFERENCES entity(ENT_ID)
+);
+
+CREATE TABLE Roles(
+ROLE_ID ENUM('elected_officials','industry','private_citizen','non_profit','interest_group','PAC', 'OTHER') primary key,		
+Chamber enum('H','S','none') NULL,
+Type enum('private','public-elected','profit', 'non-profit', 'ngo')	
+);
+
+CREATE TABLE Donations(
+DON_ID int(3) unsigned zerofill not null auto_increment primary key,
+ENT_ID INT(3),	
+OFF_ID INT(3),
+Date DATE NOT NULL,		
+Amount numeric(15,2),
+FOREIGN KEY (ENT_ID) REFERENCES entity(ENT_ID),
+FOREIGN KEY (OFF_ID) REFERENCES elected_officials(OFF_ID)
+);
